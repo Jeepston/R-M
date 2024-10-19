@@ -35,6 +35,11 @@ final class CharacterDetailsViewModel {
     }
 
     func getCharacter() async {
+        // When used with List, task is called twice, and on of the tasks is cancelled
+        guard !Task.isCancelled else {
+            return
+        }
+
         do {
             character = try await clients.characterClient.getCharacterDetails(characterId)
             isFavorite = isChatacterFavorite()

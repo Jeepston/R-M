@@ -77,7 +77,9 @@ struct CharacterDetailsView: View {
         }
         .padding(.horizontal, 16)
         .padding(.top, 16)
-        .task { await viewModel.getCharacter() }
+        .task(id: viewModel.character.id, priority: .userInitiated) {
+            await viewModel.getCharacter()
+        }
         .alert(isPresented: $viewModel.showErrorAlert) {
             Alert(
                 title: Text("Network error"),

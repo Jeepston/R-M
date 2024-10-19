@@ -79,6 +79,7 @@ struct CharacterRow: View {
         .background(Color.cardBackground)
         .cornerRadius(16)
         .shadow(color: .cardShadow, radius: 16, x: 0, y: 0)
+        .listRowBackground(Color.clear)
     }
 }
 

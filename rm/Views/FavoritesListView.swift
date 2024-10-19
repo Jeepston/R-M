@@ -9,24 +9,29 @@ import SwiftUI
 
 struct FavoritesListView: View {
 
-    var viewModel: FavoritesListViewModel
+    @Bindable var viewModel: FavoritesListViewModel
 
     var body: some View {
-        NavigationStack {
-            ScrollView(showsIndicators: false) {
-                LazyVStack(spacing: 16) {
-                    ForEach(viewModel.characters) { character in
-                        NavigationLink(
-                            destination: viewModel.destination(for: character)
-                        ) {
-                            CharacterRow(viewObject: CharacterRowVOMapper.map(character))
-                        }
-                    }
+        NavigationSplitView {
+            List(viewModel.characters, selection: $viewModel.selectedCharacter) { character in
+                Button(action: {
+                    debugPrint("Selected character: \(character.id)")
+                    viewModel.selectedCharacter = character
+                }) {
+                    CharacterRow(viewObject: CharacterRowVOMapper.map(character))
                 }
-                .padding(.horizontal, 16)
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
             }
+            .listRowSpacing(16)
             .background(Color.backgroundsPrimary)
             .navigationTitle("Favorites")
+        } detail: {
+            if let character = viewModel.selectedCharacter {
+                viewModel.destination(for: character)
+            } else {
+                Text("Select a character")
+            }
         }
         .navigationBarTitleDisplayMode(.large)
         .task { await viewModel.getCharacters() }
