@@ -9,9 +9,13 @@ import SwiftUI
 
 struct CharacterDetailsView: View {
 
+    // MARK: - Properties
+
     @Bindable var viewModel: CharacterDetailsViewModel
 
     private let imageSize = 140.0
+
+    // MARK: - Body
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -41,9 +45,9 @@ struct CharacterDetailsView: View {
 
                     Spacer()
 
-                    Button(action: {
+                    Button {
                         viewModel.didTapFavoriteButton()
-                    }) {
+                    } label: {
                         Image(viewModel.isFavorite ? .favFull : .favorites)
                             .resizable()
                             .frame(size: 30)
@@ -92,6 +96,7 @@ struct CharacterDetailsView: View {
     }
 }
 
+// MARK: - Preview
 
 #Preview {
     CharacterDetailsView(

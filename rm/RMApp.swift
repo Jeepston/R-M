@@ -8,9 +8,8 @@
 import SwiftUI
 import SwiftData
 
-
 @main
-struct rmApp: App {
+struct RMApp: App {
 
     init() {
         setUpAppearance()
@@ -21,8 +20,13 @@ struct rmApp: App {
             MainView()
         }
     }
+}
 
-    private func setUpAppearance() {
+// MARK: - Private functions
+
+private extension RMApp {
+
+    func setUpAppearance() {
         let searchBarAppearance = UISearchBar.appearance()
 
         searchBarAppearance.tintColor = UIColor.searchBarTint

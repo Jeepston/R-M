@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct MainView: View {
 
     // MARK: - Body
@@ -25,7 +24,7 @@ struct MainView: View {
             .tabItem {
                 Image(.characters)
             }
-            
+
             FavoritesListView(
                 viewModel: .init(
                     clients: .init(

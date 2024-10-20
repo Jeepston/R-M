@@ -9,17 +9,20 @@ import SwiftUI
 
 struct FavoritesListView: View {
 
+    // MARK: - Properties
+
     @Bindable var viewModel: FavoritesListViewModel
+
+    // MARK: - Body
 
     var body: some View {
         NavigationSplitView {
             List(viewModel.characters, selection: $viewModel.selectedCharacter) { character in
-                Button(action: {
-                    debugPrint("Selected character: \(character.id)")
-                    viewModel.selectedCharacter = character
-                }) {
                     CharacterRow(viewObject: CharacterRowVOMapper.map(character))
-                }
+                        .overlay {
+                            NavigationLink("", destination: viewModel.destination(for: character))
+                                .opacity(0)
+                        }
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
             }
@@ -37,6 +40,8 @@ struct FavoritesListView: View {
         .task { await viewModel.getCharacters() }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     FavoritesListView(

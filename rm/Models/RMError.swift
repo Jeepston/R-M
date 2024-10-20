@@ -10,7 +10,3 @@ enum NetworkError: Error {
     case invalidResponse
     case invalidStatusCode
 }
-
-enum RMError: Error {
-    case notAvailableInDemo
-}

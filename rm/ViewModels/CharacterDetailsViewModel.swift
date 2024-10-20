@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 @Observable @MainActor
 final class CharacterDetailsViewModel {
 
@@ -21,7 +20,6 @@ final class CharacterDetailsViewModel {
     private let clients: Clients
     private let characterId: Int
 
-
     // MARK: - State
 
     var viewState: ViewState = .loading
@@ -33,6 +31,8 @@ final class CharacterDetailsViewModel {
         self.clients = clients
         self.characterId = characterId
     }
+
+    // MARK: - Functions
 
     func getCharacter() async {
         // When used with List, task is called twice, and on of the tasks is cancelled

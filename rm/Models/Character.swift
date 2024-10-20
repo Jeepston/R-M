@@ -14,11 +14,9 @@ struct ResponseInfo: Codable {
 struct CharacterResponseModel: Codable {
     let info: ResponseInfo
     let results: [Character]
-
-    static let empty: Self = .init(info: .init(count: 0, pages: 0, next: nil), results: [])
 }
 
-struct Character: Codable, Identifiable {
+struct Character: Codable, Identifiable, Hashable {
     let id: Int
     let name: String
     let status: String
@@ -33,11 +31,10 @@ struct Character: Codable, Identifiable {
     let created: String
 }
 
-struct Location: Codable {
+struct Location: Codable, Hashable {
     let name: String
     let url: String
 }
-
 
 // MARK: - Demo
 

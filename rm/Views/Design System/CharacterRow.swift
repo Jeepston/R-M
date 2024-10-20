@@ -19,7 +19,6 @@ struct CharacterRow: View {
         let isFavorite: Bool
     }
 
-
     // MARK: - Properties
 
     let viewObject: ViewObject
@@ -29,7 +28,7 @@ struct CharacterRow: View {
     // MARK: - Body
 
     var body: some View {
-        HStack{
+        HStack {
             HStack(alignment: .top, spacing: 16) {
                 CachedAsyncImage(url: viewObject.imageUrl, urlCache: .imageCache) { image in
                     image
@@ -82,7 +81,6 @@ struct CharacterRow: View {
         .listRowBackground(Color.clear)
     }
 }
-
 
 // MARK: - Preview
 

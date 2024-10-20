@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension View {
+
     @ViewBuilder
     func shimmer(when isLoading: Binding<Bool> = .constant(true)) -> some View {
         if isLoading.wrappedValue {

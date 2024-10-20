@@ -10,34 +10,43 @@ import SwiftUIIntrospect
 
 struct CharactersListView: View {
 
+    // MARK: - Properties
+
     @Bindable var viewModel: CharactersListViewModel
 
+    // MARK: - Body
+
     var body: some View {
-            Group {
-                switch viewModel.viewState {
-                case .loading:
-                    loadingView
-                case .loaded:
-                    contenView
-                case .empty:
-                    emptyView
-                case .error:
-                    errorView
-                case .isSearching:
-                    EmptyView()
-                }
+        Group {
+            switch viewModel.viewState {
+            case .loading:
+                loadingView
+            case .loaded:
+                contenView
+            case .empty:
+                emptyView
+            case .error:
+                errorView
             }
-            .task { await viewModel.getMoreCharacters() }
+        }
+        .task { await viewModel.getMoreCharacters() }
     }
+}
+
+// MARK: - Private functions
+
+private extension CharactersListView {
 
     @ViewBuilder
-    private var contenView: some View {
-        NavigationStack {
-            ScrollView(showsIndicators: false) {
-                LazyVStack(spacing: 16) {
-                    if viewModel.isSearching {
+    var contenView: some View {
+        NavigationSplitView {
+            Group {
+                if viewModel.isSearching {
+                    List {
                         ForEach(viewModel.searchResults) { character in
                             SearchResultRow(viewObject: SearchResultVOMapper.map(character))
+                                .listRowInsets(EdgeInsets())
+                                .listRowSeparator(.hidden)
                         }
 
                         if viewModel.hasMoreSearchResults {
@@ -46,13 +55,18 @@ struct CharactersListView: View {
                                     Task { await viewModel.searchCharacters() }
                                 }
                         }
-                    } else {
+                    }
+                    .listRowSpacing(16)
+                } else {
+                    List(selection: $viewModel.selectedCharacter) {
                         ForEach(viewModel.characters) { character in
-                            NavigationLink(
-                                destination: viewModel.destination(for: character)
-                            ) {
-                                CharacterRow(viewObject: viewModel.characterVO(for: character))
-                            }
+                            CharacterRow(viewObject: viewModel.characterVO(for: character))
+                                .overlay {
+                                    NavigationLink("", destination: viewModel.destination(for: character))
+                                        .opacity(0)
+                                }
+                                .listRowInsets(EdgeInsets())
+                                .listRowSeparator(.hidden)
                         }
 
                         if viewModel.hasMoreData {
@@ -60,14 +74,23 @@ struct CharactersListView: View {
                                 .onAppear {
                                     Task { await viewModel.getMoreCharacters() }
                                 }
+                                .listRowInsets(EdgeInsets())
+                                .listRowSeparator(.hidden)
                         }
                     }
+                    .listRowSpacing(16)
+                    .navigationTitle("Characters")
                 }
-                .padding(.horizontal, 16)
             }
             .background(Color.backgroundsPrimary)
             .id(viewModel.refreshUi)
             .navigationTitle("Characters")
+        } detail: {
+            if let character = viewModel.selectedCharacter {
+                viewModel.destination(for: character)
+            } else {
+                Text("Select a character")
+            }
         }
         .navigationBarTitleDisplayMode(.large)
         .searchable(text: $viewModel.searchText, isPresented: $viewModel.isSearching, prompt: "Search character")
@@ -102,9 +125,9 @@ struct CharactersListView: View {
             VStack(spacing: 16) {
                 Headline3Text("No characters at the moment. Try again later")
 
-                Button(action: {
+                Button {
                     Task { await viewModel.getMoreCharacters() }
-                }) {
+                } label: {
                     Text("Re-try")
                 }
             }
@@ -113,7 +136,7 @@ struct CharactersListView: View {
         }
         .navigationBarTitleDisplayMode(.large)
     }
-    
+
     @ViewBuilder
     var errorView: some View {
         NavigationStack {
@@ -121,9 +144,9 @@ struct CharactersListView: View {
                 Headline1Text("There was an error while trying to download characters. Try again later")
                     .foregroundColor(.red)
 
-                Button(action: {
+                Button {
                     Task { await viewModel.getMoreCharacters() }
-                }) {
+                } label: {
                     Text("Re-try")
                 }
             }
@@ -134,6 +157,7 @@ struct CharactersListView: View {
     }
 }
 
+// MARK: - Preview
 
 #Preview {
     CharactersListView(

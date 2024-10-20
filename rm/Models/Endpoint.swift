@@ -29,13 +29,12 @@ struct Endpoint {
     }
 }
 
-
 extension Endpoint {
     static func characters(page: Int = 1) -> Endpoint {
         Endpoint(
             path: "character",
             queryItems: [
-                URLQueryItem(name: "page", value: String(page)),
+                URLQueryItem(name: "page", value: String(page))
             ]
         )
     }
@@ -52,6 +51,5 @@ extension Endpoint {
                 URLQueryItem(name: "page", value: String(page))
             ]
         )
-
     }
 }

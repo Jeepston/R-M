@@ -19,7 +19,6 @@ final class FavoritesListViewModel {
 
     private let clients: Clients
 
-
     // MARK: - State
 
     var characters: [FavoriteCharacter] = []
@@ -28,6 +27,8 @@ final class FavoritesListViewModel {
     init(clients: Clients) {
         self.clients = clients
     }
+
+    // MARK: - Functions
 
     func getCharacters() async {
         characters = clients.databaseClient.fetchFavorites()

@@ -8,7 +8,6 @@
 import SwiftData
 import Foundation
 
-
 final class DatabaseService {
     private let modelContainer: ModelContainer
     private let modelContext: ModelContext
@@ -66,7 +65,6 @@ final class DatabaseService {
     func isFavorite(characterId: Int) -> Bool {
         favoriteIds.contains(characterId)
     }
-
 
     // To observe database changes
     func favoriteIdsStream() -> AsyncStream<Set<Int>> {

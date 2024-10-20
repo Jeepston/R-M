@@ -9,11 +9,15 @@ import SwiftUI
 
 struct Headline2Text: View {
 
+    // MARK: - Properties
+
     private let text: String
 
     init(_ text: String) {
         self.text = text
     }
+
+    // MARK: - Body
 
     var body: Text {
         Text(text)
@@ -21,6 +25,8 @@ struct Headline2Text: View {
             .foregroundStyle(Color.primary)
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     Headline2Text("Headline2")

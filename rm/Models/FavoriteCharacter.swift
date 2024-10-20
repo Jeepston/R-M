@@ -7,7 +7,6 @@
 
 import SwiftData
 
-
 @Model
 final class FavoriteCharacter {
     var id: Int
@@ -16,7 +15,13 @@ final class FavoriteCharacter {
     var image: String
     var url: String
 
-    init(id: Int, name: String, status: String, image: String, url: String) {
+    init(
+        id: Int,
+        name: String,
+        status: String,
+        image: String,
+        url: String
+    ) {
         self.id = id
         self.name = name
         self.status = status

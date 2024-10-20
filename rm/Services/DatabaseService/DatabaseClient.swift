@@ -13,4 +13,3 @@ struct DatabaseClient {
     var isFavorite: (_ id: Int) -> Bool
     var favoriteIdsStream: () -> AsyncStream<Set<Int>>
 }
-

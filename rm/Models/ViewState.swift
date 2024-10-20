@@ -10,5 +10,4 @@ enum ViewState {
     case loaded
     case empty
     case error
-    case isSearching
 }

@@ -20,12 +20,12 @@ final class CharactersListViewModel {
 
     private let clients: Clients
 
-
     // MARK: - State
 
     var viewState: ViewState = .loading
 
     var characters: [Character] = []
+    var selectedCharacter: Character?
     var hasMoreData = false
 
     var searchResults: [Character] = []
@@ -47,13 +47,15 @@ final class CharactersListViewModel {
 
         searchInputSubject
             .debounce(for: 0.5, scheduler: RunLoop.main)
-            .sink { [weak self] searchName in
+            .sink { [weak self] _ in
                 Task { await self?.searchCharacters() }
             }
             .store(in: &cancellables)
 
         Task { await self.observeDbChanges() }
     }
+
+    // MARK: - Functions
 
     func getMoreCharacters() async {
         if isFirstLoad {
@@ -114,8 +116,12 @@ final class CharactersListViewModel {
         searchText = ""
         currentSearchPage = 1
     }
+}
 
-    private func observeDbChanges() async {
+// MARK: - Private functions
+
+private extension CharactersListViewModel {
+    func observeDbChanges() async {
         for await _ in clients.databaseClient.favoriteIdsStream() {
             refreshUi.toggle()
         }

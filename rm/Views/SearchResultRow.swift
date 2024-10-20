@@ -17,7 +17,6 @@ struct SearchResultRow: View {
         let status: String
     }
 
-
     // MARK: - Properties
 
     let viewObject: ViewObject
@@ -27,7 +26,7 @@ struct SearchResultRow: View {
     // MARK: - Body
 
     var body: some View {
-        HStack{
+        HStack {
             HStack(alignment: .top, spacing: 16) {
                 AsyncImage(url: viewObject.imageUrl) { image in
                     image
@@ -59,7 +58,6 @@ struct SearchResultRow: View {
         .frame(height: 60)
     }
 }
-
 
 // MARK: - Preview
 

@@ -5,7 +5,6 @@
 //  Created by Dmitrij Hojkolov on 16.10.2024.
 //
 
-
 struct CharacterService {
     let networkService: NetworkService
 
@@ -26,7 +25,7 @@ struct CharacterService {
 
         throw NetworkError.invalidUrl
     }
-    
+
     func searchCharacters(_ name: String, _ page: Int) async throws -> CharacterResponseModel {
         let endPoint = Endpoint.searchCharacters(name: name, page: page)
         if let url = endPoint.url {

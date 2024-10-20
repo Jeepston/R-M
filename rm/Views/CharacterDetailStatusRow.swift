@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct CharacterDetailStatusRow: View {
+
+    // MARK: - Properties
+
     let label: String
     let value: String
+
+    // MARK: - Body
 
     var body: some View {
         HStack {
@@ -23,6 +28,8 @@ struct CharacterDetailStatusRow: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     CharacterDetailStatusRow(label: "Location", value: "-")

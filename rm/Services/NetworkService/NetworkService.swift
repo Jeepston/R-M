@@ -23,7 +23,6 @@ struct NetworkService {
     }
 }
 
-
 private extension NetworkService {
     func decodeJSONData<T: Codable>(data: Data) throws -> T {
         try JSONDecoder().decode(T.self, from: data)
