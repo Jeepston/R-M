@@ -48,7 +48,7 @@ extension Character {
         gender: "Male",
         origin: .init(name: "Earth", url: "https://rickandmortyapi.com/api/location/1"),
         location: .init(name: "Earth", url: "https://rickandmortyapi.com/api/location/20"),
-        image: "",
+        image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
         episode: ["https://rickandmortyapi.com/api/episode/1"],
         url: "https://rickandmortyapi.com/api/character/1",
         created: "2017-11-04T18:48:46.250Z"

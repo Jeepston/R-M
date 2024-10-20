@@ -16,4 +16,16 @@ extension DatabaseClient {
             favoriteIdsStream: { AsyncStream<Set<Int>> { _ in } }
         )
     }
+
+    // For testing
+    static var inMemory: Self {
+        let service = DatabaseService(isInMemory: true)
+        return .init(
+            fetchFavorites: service.fetchCharacters,
+            addFavorite: service.append,
+            removeFavorite: service.removeFavoriteCharacterWithId,
+            isFavorite: service.isFavorite,
+            favoriteIdsStream: service.favoriteIdsStream
+        )
+    }
 }

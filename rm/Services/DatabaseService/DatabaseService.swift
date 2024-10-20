@@ -18,9 +18,9 @@ final class DatabaseService {
     static let shared = DatabaseService()
 
     @MainActor
-    private init() {
+    internal init(isInMemory: Bool = false) {
         let schema = Schema([FavoriteCharacter.self])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: isInMemory)
 
         do {
             self.modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
